@@ -36,9 +36,22 @@ function action(primary, target) {
   console.log(primary, target);
 };
 
+function printlog(str) {
+  let $log = $('#log');
+  $log.append("<p>" + str + "</p>");
+};
+
 function main() {
-  let $log = $('.well');
-  console.log($log);
+  let $attack = $('#atk');
+  let $heal =  $('#heal');
+
+  $attack.click(() => {
+    printlog("Attack Made");
+  });
+
+  $heal.click(() => {
+    printlog("Heal Made");
+  });
 };
 
 $(document).ready(function(){
