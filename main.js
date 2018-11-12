@@ -32,9 +32,18 @@ function hasWon(hero, villian) {
   return false;
 };
 
-function action(primary, target) {
-  console.log(primary, target);
-};
+function autoAttack() {
+  printlog("Attack Made");
+  console.log("hero attack accuracy: " + Math.random(heroes.blader.accuracy));
+  console.log("hero attack damage: " + Math.random(heroes.blader.damage));
+
+  console.log("boss attack accuracy: " + Math.random(villians.boss.accuracy));
+  console.log("boss attack damage: " + Math.random(villians.boss.damage));
+}
+
+function autoHeal() {
+  printlog("Heal Made");
+}
 
 function printlog(str) {
   let $log = $('#log');
@@ -46,11 +55,11 @@ function main() {
   let $heal =  $('#heal');
 
   $attack.click(() => {
-    printlog("Attack Made");
+    autoAttack();
   });
 
   $heal.click(() => {
-    printlog("Heal Made");
+    autoHeal();
   });
 };
 
