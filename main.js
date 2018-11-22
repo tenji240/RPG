@@ -34,11 +34,11 @@ function hasWon(hero, villian) {
 
 function autoAttack() {
   printlog("Attack Made");
-  console.log("hero attack accuracy: " + Math.random(heroes.blader.accuracy));
-  console.log("hero attack damage: " + Math.random(heroes.blader.damage));
+  console.log("hero attack accuracy: " + Math.floor((heroes.blader.accuracy * Math.random())));
+  console.log("hero attack damage: " + Math.floor((heroes.blader.damage * Math.random())))
 
-  console.log("boss attack accuracy: " + Math.random(villians.boss.accuracy));
-  console.log("boss attack damage: " + Math.random(villians.boss.damage));
+  console.log("hero attack accuracy: " + Math.floor((heroes.blader.accuracy * Math.random())));
+  console.log("hero attack damage: " + Math.floor((heroes.blader.damage * Math.random())))
 }
 
 function autoHeal() {
