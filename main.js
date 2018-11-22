@@ -1,3 +1,5 @@
+const MAX_HEALTH_BLADER = 100;
+
 var heroes = {
   blader: {
     health: 100,
@@ -15,7 +17,7 @@ var heroes = {
   },
 };
 
-var villians = {
+var villans = {
   boss: {
     health: 1000,
     damage: 20,
@@ -25,24 +27,62 @@ var villians = {
 };
 
 
-function hasWon(hero, villian) {
-  if (hero.health >= 0 && villian.health <= 0){
+function hasWon(hero, villan) {
+  if (hero.health >= 0 && villan.health <= 0){
     return true;
   }
   return false;
 };
 
-function autoAttack() {
-  printlog("Attack Made");
-  console.log("hero attack accuracy: " + Math.floor((heroes.blader.accuracy * Math.random())));
-  console.log("hero attack damage: " + Math.floor((heroes.blader.damage * Math.random())))
+function bossAtack() {
+  let boss_dmg = 0;
+  const boss_accuracy =  Math.floor((villans.boss.accuracy * Math.random()));
+  console.log("Boss accuracy: " + boss_accuracy);
+  if (boss_accuracy > 40) {
+    boss_dmg = Math.floor((villans.boss.damage * Math.random()));
+  }
+  else {
+    console.log("boss has missed");
+  }
+  printlog("Boss DMG: " + boss_dmg);
+  heroes.blader.health -= boss_dmg;
+}
 
-  console.log("hero attack accuracy: " + Math.floor((heroes.blader.accuracy * Math.random())));
-  console.log("hero attack damage: " + Math.floor((heroes.blader.damage * Math.random())))
+function autoAttack() {
+  printlog("----------------");
+  printlog("Turn Exectued");
+  let hero_dmg = 0;
+  const hero_accuracy =  Math.floor((heroes.blader.accuracy * Math.random()));
+  console.log("Hero accuracy: " + hero_accuracy);
+  if (hero_accuracy > 30) {
+    hero_dmg = Math.floor((heroes.blader.damage * Math.random())) * 10;
+  }
+  else {
+    console.log("hero has missed");
+  }
+  bossAtack();
+  villans.boss.health -= hero_dmg;
+  autoHeal();
+  printlog("Hero DMG: " + hero_dmg);
+  printlog("Boss Health: " + villans.boss.health);
+  printlog("----------------");
+
 }
 
 function autoHeal() {
-  printlog("Heal Made");
+  let healer_recover = 0;
+  const healer_accuracy = Math.floor(heroes.healer.accuracy * Math.random());
+  if (healer_accuracy > 70) {
+    healer_recover = Math.floor(heroes.healer.damage * Math.random());
+  }
+  const tempHealth = heroes.blader.health + healer_recover;
+  if (tempHealth <= 100) {
+    heroes.blader.health = tempHealth;
+  } else {
+    console.log("overage");
+    heroes.blader.health = MAX_HEALTH_BLADER;
+  }
+  printlog('Current Blader Health: ' + heroes.blader.health);
 }
 
 function printlog(str) {
