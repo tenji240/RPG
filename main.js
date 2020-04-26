@@ -1,4 +1,11 @@
 const MAX_HEALTH_BLADER = 100;
+let $attack = $('#atk');
+let $heal =  $('#heal');
+let $log = $('#log');
+let $hero = $('#hero');
+let $healer = $('#healer');
+let $boss = $('#boss');
+
 
 var heroes = {
   blader: {
@@ -42,7 +49,7 @@ function bossAtack() {
     boss_dmg = Math.floor((villans.boss.damage * Math.random()));
   }
   else {
-    console.log("boss has missed");
+    printlog("boss has missed");
   }
   printlog("Boss DMG: " + boss_dmg);
   heroes.blader.health -= boss_dmg;
@@ -58,7 +65,7 @@ function autoAttack() {
     hero_dmg = Math.floor((heroes.blader.damage * Math.random())) * 10;
   }
   else {
-    console.log("hero has missed");
+    printlog("Hero has missed");
   }
   bossAtack();
   villans.boss.health -= hero_dmg;
@@ -86,15 +93,16 @@ function autoHeal() {
 }
 
 function printlog(str) {
-  let $log = $('#log');
   $log.append("<p>" + str + "</p>");
 };
 
-function main() {
-  let $attack = $('#atk');
-  let $heal =  $('#heal');
+function clearLog() {
+  $log.empty();
+}
 
+function main() {
   $attack.click(() => {
+    clearLog();
     autoAttack();
   });
 

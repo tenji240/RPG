@@ -1,5 +1,7 @@
 # Functions
 
+`lessc styles/app.less > styles/app.css`
+
 ## main
 
 Main Gameplay loop:

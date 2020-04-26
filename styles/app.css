@@ -1,6 +1,9 @@
 /* App.less Style Sheets */
 /* Less Variables */
 /* Main Tags */
+body {
+  height: 100%;
+}
 a {
   text-decoration: none;
   color: #3498db;
@@ -16,5 +19,29 @@ a:active {
   text-decoration: none;
 }
 .main {
-  padding: 40px;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+header {
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding: 12px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  text-align: center;
+  z-index: 1000;
+}
+footer button {
+  margin: 4px auto;
+  text-align: center;
 }
