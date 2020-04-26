@@ -1,16 +1,18 @@
 const MAX_HEALTH_BLADER = 100;
+const MAX_HEALTH_BOSS = 500;
 let $attack = $('#atk');
 let $heal =  $('#heal');
 let $log = $('#log');
-let $hero = $('#hero');
+
+let $heroHealth = $('#hero-health');
 let $healer = $('#healer');
-let $boss = $('#boss');
+let $bossHealth = $('#boss-health');
 
 
 var heroes = {
   blader: {
-    health: 100,
-    maxHealth: 100,
+    health: MAX_HEALTH_BLADER,
+    maxHealth: MAX_HEALTH_BLADER,
     damage: 10,
     accuracy: 80,
     status: true,
@@ -26,7 +28,8 @@ var heroes = {
 
 var villans = {
   boss: {
-    health: 300,
+    health: MAX_HEALTH_BOSS,
+    maxHealth: MAX_HEALTH_BOSS,
     damage: 20,
     accuracy: 60,
     status: true,
@@ -69,7 +72,7 @@ function autoAttack() {
   }
   bossAtack();
   villans.boss.health -= hero_dmg;
-  autoHeal();
+  // autoHeal();
   printlog("Hero DMG: " + hero_dmg);
   printlog("Boss Health: " + villans.boss.health);
   printlog("----------------");
@@ -102,6 +105,11 @@ function hasWon() {
   }
 }
 
+function updateHealth(){
+  $heroHealth.css("width", `${heroes.blader.health}%`);
+  $bossHealth.css("width", `${(villans.boss.health / MAX_HEALTH_BOSS) * 100}%`);
+}
+
 function printlog(str) {
   $log.append("<p>" + str + "</p>");
 };
@@ -114,11 +122,13 @@ function main() {
   $attack.click(() => {
     clearLog();
     autoAttack();
+    updateHealth();
     hasWon();
   });
 
   $heal.click(() => {
     autoHeal();
+    updateHealth();
   });
 };
 
