@@ -26,7 +26,7 @@ var heroes = {
 
 var villans = {
   boss: {
-    health: 1000,
+    health: 300,
     damage: 20,
     accuracy: 60,
     status: true,
@@ -92,6 +92,16 @@ function autoHeal() {
   printlog('Current Blader Health: ' + heroes.blader.health);
 }
 
+function hasWon() {
+  if (heroes.blader.health > 0 && villans.boss.health <= 0) {
+    printlog('WINNER! CONGRATULATIONS');
+  } else if (heroes.blader.health <= 0 && villans.boss.health > 0) {
+    printlog('GAME OVER! :(');
+  } else {
+    console.log('the game is still afoot');
+  }
+}
+
 function printlog(str) {
   $log.append("<p>" + str + "</p>");
 };
@@ -104,6 +114,7 @@ function main() {
   $attack.click(() => {
     clearLog();
     autoAttack();
+    hasWon();
   });
 
   $heal.click(() => {
