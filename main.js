@@ -1,8 +1,9 @@
 const MAX_HEALTH_BLADER = 100;
-const MAX_HEALTH_BOSS = 500;
+const MAX_HEALTH_BOSS = 1000;
 let $attack = $('#atk');
 let $heal =  $('#heal');
 let $log = $('#log');
+let $reset = $('#reset');
 
 let $heroHealth = $('#hero-health');
 let $healer = $('#healer');
@@ -98,10 +99,13 @@ function autoHeal() {
 function hasWon() {
   if (heroes.blader.health > 0 && villans.boss.health <= 0) {
     printlog('WINNER! CONGRATULATIONS');
+    $reset.css('display', 'inline-block');
   } else if (heroes.blader.health <= 0 && villans.boss.health > 0) {
     printlog('GAME OVER! :(');
+    $reset.css('display', 'inline-block');
   } else {
     console.log('the game is still afoot');
+    $reset.css('display', 'none');
   }
 }
 
@@ -118,6 +122,13 @@ function clearLog() {
   $log.empty();
 }
 
+function reset() {
+  heroes.blader.health = MAX_HEALTH_BLADER;
+  villans.boss.health = MAX_HEALTH_BOSS;
+  updateHealth();
+  clearLog();
+}
+
 function main() {
   $attack.click(() => {
     clearLog();
@@ -130,6 +141,11 @@ function main() {
     autoHeal();
     updateHealth();
   });
+
+  $reset.click(() => {
+    reset();
+    $reset.css('display', 'none');
+  })
 };
 
 $(document).ready(function(){
