@@ -5,9 +5,16 @@ let $heal =  $('#heal');
 let $log = $('#log');
 let $reset = $('#reset');
 
+// ** TODO: Define generic classes
+// ?? investigate framework update?
 let $heroHealth = $('#hero-health');
+let $heroDMG = $('#hero-dmg');
+let $heroTaken = $('#hero-taken');
 let $healer = $('#healer');
+
 let $bossHealth = $('#boss-health');
+let $bossDMG = $('#boss-dmg');
+let $bossTaken = $('#boss-taken');
 
 
 var heroes = {
@@ -51,11 +58,17 @@ function bossAtack() {
   console.log("Boss accuracy: " + boss_accuracy);
   if (boss_accuracy > 40) {
     boss_dmg = Math.floor((villans.boss.damage * Math.random()));
+    $heroTaken.empty();
+    $heroTaken.append(boss_dmg + ' damage taken');
+    $bossDMG.empty();
+    $bossDMG.append(boss_dmg + ' damage dealt');
+    printlog("Boss hit for " + boss_dmg + " dmg with " + boss_accuracy + "% accuracy");
   }
   else {
-    printlog("boss has missed");
+    printlog("Boss has missed");
+    $heroTaken.empty();
+    $heroTaken.append('0 damage taken');
   }
-  printlog("Boss DMG: " + boss_dmg);
   heroes.blader.health -= boss_dmg;
 }
 
@@ -67,15 +80,20 @@ function autoAttack() {
   console.log("Hero accuracy: " + hero_accuracy);
   if (hero_accuracy > 30) {
     hero_dmg = Math.floor((heroes.blader.damage * Math.random())) * 10;
+    $heroDMG.empty();
+    $heroDMG.append(hero_dmg + ' damage dealt');
+    $bossTaken.empty();
+    $bossTaken.append(hero_dmg + ' damage taken');
+    printlog("Hero hit for " + hero_dmg + " dmg with " + hero_accuracy + "% accuracy");
   }
   else {
     printlog("Hero has missed");
+    $heroDMG.empty();
+    $heroDMG.append('0 damage dealt');
   }
   bossAtack();
   villans.boss.health -= hero_dmg;
-  // autoHeal();
-  printlog("Hero DMG: " + hero_dmg);
-  printlog("Boss Health: " + villans.boss.health);
+  // autoHeal(); not sure why tbh
   printlog("----------------");
 
 }
