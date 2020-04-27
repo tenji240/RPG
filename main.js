@@ -11,6 +11,7 @@ let $heroHealth = $('#hero-health');
 let $heroDMG = $('#hero-dmg');
 let $heroTaken = $('#hero-taken');
 let $healer = $('#healer');
+let $heroStats = $('#hero-stats'); // ** testing w/string for now
 
 let $bossHealth = $('#boss-health');
 let $bossDMG = $('#boss-dmg');
@@ -44,6 +45,23 @@ var villans = {
   },
 };
 
+// ** ANIMATION FUNCTION  
+// animation end isnt getting hit properly
+// need to fix logic here on click
+function animate(element, animationName, callback) {
+  const node = document.querySelector(element);
+  node.setAttribute("class", "");
+  console.log('NODE', node.classList);
+  node.classList.add('animated', animationName);
+
+  function handleAnimationEnd() {
+    console.log('HOLLA');
+    node.addEventListener('animationend', handleAnimationEnd);
+    if (typeof callback ===  'function') callback();
+  }
+
+  node.addEventListener('animationend', handleAnimationEnd);
+}
 
 function hasWon(hero, villan) {
   if (hero.health >= 0 && villan.health <= 0){
@@ -152,6 +170,10 @@ function main() {
     clearLog();
     autoAttack();
     updateHealth();
+    animate('#hero-stats', 'zoomInDown', function() {
+      $heroStats.removeClass();
+      $heroStats.addClass('animated', 'zoomOutUp');
+    })
     hasWon();
   });
 
