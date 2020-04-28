@@ -51,12 +51,10 @@ var villans = {
 // need to fix logic here on click
 function animate(element, animationName, callback) {
   const node = document.querySelector(element);
-  console.log('NODE', node.classList);
   node.setAttribute("class", "");
   node.classList.add('animated', animationName);
 
   function handleAnimationEnd() {
-    console.log('HOLLA');
     node.classList.remove('animated', animationName);
     node.removeEventListener('animationend', handleAnimationEnd);
 
@@ -170,7 +168,7 @@ function reset() {
 
 function animationEndCallback(element) {
   element.removeClass();
-  element.addClass('animated fadeOut delay-3s');
+  element.addClass('animated fadeOut delay-2s');
 }
 
 function main() {
