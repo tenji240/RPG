@@ -11,10 +11,12 @@ let $heroHealth = $('#hero-health');
 let $heroDMG = $('#hero-dmg');
 let $heroTaken = $('#hero-taken');
 let $healer = $('#healer');
+let $heroStats = $('#hero-stats'); // ** testing w/string for now
 
 let $bossHealth = $('#boss-health');
 let $bossDMG = $('#boss-dmg');
 let $bossTaken = $('#boss-taken');
+let $bossStats = $('#boss-stats');
 
 
 var heroes = {
@@ -44,6 +46,22 @@ var villans = {
   },
 };
 
+// ** ANIMATION FUNCTION
+// TODO: when upgrading to a framework, do not use base JS code
+function animate(element, animationName, callback) {
+  const node = document.querySelector(element);
+  node.setAttribute("class", "");
+  node.classList.add('animated', animationName);
+
+  function handleAnimationEnd() {
+    node.classList.remove('animated', animationName);
+    node.removeEventListener('animationend', handleAnimationEnd);
+
+    if (typeof callback ===  'function') callback();
+  }
+
+  node.addEventListener('animationend', handleAnimationEnd);
+}
 
 function hasWon(hero, villan) {
   if (hero.health >= 0 && villan.health <= 0){
@@ -147,11 +165,22 @@ function reset() {
   clearLog();
 }
 
+function animationEndCallback(element) {
+  element.removeClass();
+  element.addClass('animated fadeOut delay-2s');
+}
+
 function main() {
   $attack.click(() => {
     clearLog();
     autoAttack();
     updateHealth();
+    animate('#hero-stats', 'fadeIn', function() {
+      animationEndCallback($heroStats);
+    });
+    animate('#boss-stats', 'fadeIn', function() {
+      animationEndCallback($bossStats);
+    });
     hasWon();
   });
 
