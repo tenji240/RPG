@@ -46,9 +46,8 @@ var villans = {
   },
 };
 
-// ** ANIMATION FUNCTION  
-// animation end isnt getting hit properly
-// need to fix logic here on click
+// ** ANIMATION FUNCTION
+// TODO: when upgrading to a framework, do not use base JS code
 function animate(element, animationName, callback) {
   const node = document.querySelector(element);
   node.setAttribute("class", "");
