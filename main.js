@@ -16,6 +16,7 @@ let $heroStats = $('#hero-stats'); // ** testing w/string for now
 let $bossHealth = $('#boss-health');
 let $bossDMG = $('#boss-dmg');
 let $bossTaken = $('#boss-taken');
+let $bossStats = $('#boss-stats');
 
 
 var heroes = {
@@ -50,13 +51,15 @@ var villans = {
 // need to fix logic here on click
 function animate(element, animationName, callback) {
   const node = document.querySelector(element);
-  node.setAttribute("class", "");
   console.log('NODE', node.classList);
+  node.setAttribute("class", "");
   node.classList.add('animated', animationName);
 
   function handleAnimationEnd() {
     console.log('HOLLA');
-    node.addEventListener('animationend', handleAnimationEnd);
+    node.classList.remove('animated', animationName);
+    node.removeEventListener('animationend', handleAnimationEnd);
+
     if (typeof callback ===  'function') callback();
   }
 
@@ -165,15 +168,22 @@ function reset() {
   clearLog();
 }
 
+function animationEndCallback(element) {
+  element.removeClass();
+  element.addClass('animated fadeOut delay-3s');
+}
+
 function main() {
   $attack.click(() => {
     clearLog();
     autoAttack();
     updateHealth();
-    animate('#hero-stats', 'zoomInDown', function() {
-      $heroStats.removeClass();
-      $heroStats.addClass('animated', 'zoomOutUp');
-    })
+    animate('#hero-stats', 'fadeIn', function() {
+      animationEndCallback($heroStats);
+    });
+    animate('#boss-stats', 'fadeIn', function() {
+      animationEndCallback($bossStats);
+    });
     hasWon();
   });
 
