@@ -1,55 +1,199 @@
-# Phaser 3 Webpack Project Template
+<h1 align="center">
+  <br>
+  <a href="https://github.com/yandeu/phaser-project-template-es6#readme"><img src="readme/header-es6.png" alt="header" width="600"></a>
+  <br>
+  Phaser 3 ES6 Starter Template
+  <br>
+</h1>
 
-A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/)
-that includes hot-reloading for development and production-ready builds.
+<h4 align="center">
+A starter template for <a href="https://phaser.io/" target="_blank" >Phaser 3</a> with <strong>ES6</strong> and <a href="https://webpack.js.org/" target="_blank" >webpack</a> for building excellent html5-games that work great in the browser and on mobile devices.</h4>
 
-Loading images via JavaScript module `import` is also supported.
+<p align="center">
+  <a href="https://david-dm.org/yandeu/phaser-project-template-es6" title="dependencies status">
+    <img src="https://david-dm.org/yandeu/phaser-project-template-es6/status.svg?style=flat-square"/>
+  </a>
+  <a href="https://opensource.org/licenses/MIT" title="License: MIT" >
+    <img src="https://img.shields.io/badge/License-MIT-greenbright.svg?style=flat-square">
+  </a>
+  <img src="https://img.shields.io/github/package-json/v/yandeu/phaser-project-template-es6.svg?style=flat-square" alt="GitHub package.json version">
+  <img src="https://img.shields.io/github/last-commit/yandeu/phaser-project-template-es6.svg?style=flat-square" alt="GitHub last commit">
+  <a href="https://github.com/prettier/prettier" alt="code style: prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
+</p>
 
-## Requirements
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#preview">Preview</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#enable3d">enable3d</a> •
+  <a href="#progressive-web-app-pwa">PWA</a> •
+  <a href="#native-app">Native App</a> •
+  <a href="#custom-configurations">Custom Configurations</a> •
+  <a href="#typescript">TypeScript</a> •
+  <a href="#useful-links">Useful Links</a> •
+  <a href="#multiplayer-game">Multiplayer Game</a> •
+  <a href="#examples">Examples</a> •
+  <a href="#credits">Credits</a> •
+  <a href="#license">License</a>
+</p>
 
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
+<blockquote align="center">
+ Want to use TypeScript instead? Switch to the <a href="https://github.com/yandeu/phaser-project-template#readme" >phaser-project-template</a>
+</blockquote>
 
-## Available Commands
+---
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm start` | Build project and open web server running project |
-| `npm run build` | Builds code bundle with production settings (minification, uglification, etc..) |
+## Key Features
 
-## Writing Code
+- **ESNext** features ready (async/await, Rest/Spread operators)
+- Code Splitting
+- Obfuscation
+- Development Server with SourceMap and Live-Reload
+- PWA ready with offline support and "Add to Home screen" install prompt
+- Easy to build Native App using Capacitor
+- Includes Phaser 3 TypeScript typings
+- For development and production builds
+- Adds a webpack ContentHash to the JavaScript files (in production)
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development
-server by running `npm start`.
+## Preview
 
+This is what you get after installing this template. A simple and clean starter template written in ES6+. [Try it!](https://s3.eu-central-1.amazonaws.com/phaser3-typescript/starter-template/index.html)
 
-After starting the development server with `npm start`, you can edit any files in the `src` folder
-and webpack will automatically recompile and reload your server (available at `http://localhost:8080`
-by default).
+<a href="https://s3.eu-central-1.amazonaws.com/phaser3-typescript/starter-template/index.html">
+<img src="readme/screenshot.png" width="640" style='border: 0.25em solid #e1e4e8;border-radius: 20px;'/>
+</a>
 
-## Customizing Template
+## How To Use
 
-### Babel
-You can write modern ES6+ JavaScript and Babel will transpile it to a version of JavaScript that you
-want your project to support. The targeted browsers are set in the `.babelrc` file and the default currently
-targets all browsers with total usage over "0.25%" but excludes IE11 and Opera Mini.
+To clone and run this template, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-  ```
-  "browsers": [
-    ">0.25%",
-    "not ie 11",
-    "not op_mini all"
-  ]
-  ```
+```bash
+# Clone this repository
+$ git clone --depth 1 https://github.com/yandeu/phaser-project-template-es6.git phaser3-game
+
+# Go into the repository
+$ cd phaser3-game
+
+# Install dependencies
+$ npm install
+
+# Start the local development server (on port 8080)
+$ npm start
+
+# Ready for production?
+# Build the production ready code to the /dist folder
+$ npm run build
+```
+
+Change the **gameName** in /webpack/webpack.common.js.
+
+All your game code lies inside the **/src/scripts** folder. All assets need to be inside the **/src/assets** folder in order to get copied to /dist while creating the production build. Do not change the name of the index.html and game.ts files.
+
+## enable3d
+
+<a href="https://github.com/yandeu/enable3d#readme"><img src="readme/enable3d-logo.png" alt="enable3d logo" width="300"></a>
+
+Want to add 3D objects and physics to your Phaser game? Checkout [enable3d](https://github.com/yandeu/enable3d#readme)!
+
+## Progressive Web App (PWA)
+
+![PWA](readme/pwa.png)
+
+This template is **100% PWA ready**.
+
+The ServiceWorker is **disabled by default**. Uncomment the line below inside /src/index.html to enable it.
+
+```html
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+    })
+  }
+</script>
+```
+
+You can easily personalize its settings by following these steps:
+
+- Replace both icons in /pwa/icons with your own.
+  - One is **512x512** the other **192x192**
+- Add your own **favicon.ico** to /src
+- Adjust these parameters in the **manifest.json** file in /pwa
+  - **short_name**: Max. 12 characters
+  - **name**: The full game name
+  - **orientation**: "landscape" or "portrait"
+  - **background_color**: color of the splash screen
+  - **theme_color**: color of the navbar - has to match the theme-color in the index.html file
+- You can leave the **sw.js** (serviceWorker) in /pwa how it is.
+- Change the **gameName** in /webpack/webpack.common.js
+
+Read more about PWA on [developers.google.com](https://developers.google.com/web/progressive-web-apps/)
+
+## Native App
+
+The simplest way to build a Native App is using [Capacitor](https://capacitor.ionicframework.com/) and following its [Documentation](https://capacitor.ionicframework.com/docs/).
+
+The only thing you need to change after installing Capacitor is the **webDir** inside the **capacitor.config.json** file. Set it to **dist** like so:
+
+```json
+{
+  "appId": "com.example.app",
+  "appName": "YOUR_APP_NAME",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}
+```
+
+## Custom Configurations
+
+### Babel Compiler
+
+Change the Babel compiler's settings in the .babelrc file.
+
+You'll find more information about the babel [here](https://babeljs.io/).
 
 ### Webpack
-If you want to customize your build, such as adding a new webpack loader or plugin (i.e. for loading CSS or fonts), you can
-modify the `webpack/base.js` file for cross-project changes, or you can modify and/or create
-new configuration files and target them in specific npm tasks inside of `package.json'.
 
-## Deploying Code
-After you run the `npm run build` command, your code will be built into a single bundle located at 
-`dist/bundle.min.js` along with any other assets you project depended. 
+All webpack configs are in the **webpack** folder.
 
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`), 
-you should be able to open `http://mycoolserver.com/index.html` and play your game.
+#### Obfuscation
+
+We are using the [webpack-obfuscator](https://github.com/javascript-obfuscator/webpack-obfuscator). Change its settings in webpack/webpack.prod.js if needed. All available options are listed [here](https://github.com/javascript-obfuscator/javascript-obfuscator#javascript-obfuscator-options).
+
+## TypeScript
+
+Want to use TypeScript instead of ES6? Switch to the [phaser-project-template](https://github.com/yandeu/phaser-project-template#readme)
+
+## Multiplayer Game
+
+Making a multiplayer game? Check out [geckos.io](https://github.com/geckosio/geckos.io#readme)
+
+## Useful Links
+
+- [Phaser Website](https://phaser.io/)
+- [Phaser 3 Forum](https://phaser.discourse.group/)
+- [Phaser 3 API Docs](https://photonstorm.github.io/phaser3-docs/)
+- [Official Phaser 3 Examples](http://labs.phaser.io/)
+- [Notes of Phaser 3](https://rexrainbow.github.io/phaser3-rex-notes/docs/site/index.html)
+
+## Examples
+
+### Game Examples Built with the TypeScript Starter Template
+
+#### Platformer Example [[Play this game](https://s3.eu-central-1.amazonaws.com/phaser3-typescript/platformer-example/index.html) - [Visit its Repository](https://github.com/yandeu/phaser3-typescript-platformer-example#readme)]
+
+[![phaser3-typescript-platformer](https://raw.githubusercontent.com/yandeu/phaser3-typescript-platformer-example/master/screenshots/nexus6-640x360.png)](https://github.com/yandeu/phaser3-typescript-platformer-example#readme)
+
+#### Phaser 3 + Matter.js: Car Example [[Play this game](https://s3.eu-central-1.amazonaws.com/phaser3-typescript/car-on-curved-tarrain/index.html) - [Visit its Repository](https://github.com/yandeu/phaser3-matter-car-on-curved-terrain#readme)]
+
+<a href="https://github.com/yandeu/phaser3-matter-car-on-curved-terrain#readme">
+<img src="https://raw.githubusercontent.com/yandeu/phaser3-matter-car-on-curved-terrain/master/readme/myimage.gif" width="640" alt="phaser3-matter-car-example">
+</a>
+
+## Credits
+
+A huge thank you to Rich [@photonstorm](https://github.com/photonstorm) for creating Phaser
+
+## License
+
+The MIT License (MIT) 2019 - [Yannick Deubel](https://github.com/yandeu). Please have a look at the [LICENSE](LICENSE) for more details.
