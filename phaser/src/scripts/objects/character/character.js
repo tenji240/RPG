@@ -9,6 +9,7 @@ export const BASE_LEVEL = 1;
 // internal constants
 const ACCURACY_CHECK_MIN = 30;
 
+// TODO: replace with sprite object
 export default class Character extends Phaser.GameObjects.GameObject {
 
   // base character setup, will 
@@ -19,11 +20,22 @@ export default class Character extends Phaser.GameObjects.GameObject {
     accuracy: BASE_ACCURACY,
     status: true,
     xp: BASE_XP,
-    level: BASE_LEVEL
+    level: BASE_LEVEL,
+    avatar: null,
   };
 
-  constructor(scene) {
+  constructor(scene, color, x, y) {
     super(scene, 'sprite')
+    this.avatar = Phaser.GameObjects.Graphics(scene);
+    this.draw(color, x, y);
+    scene.add.existing(this.character.avatar);
+  }
+
+  // insert a base character image
+  draw(color, x, y) { // hexadeciamal valie inside
+    this.character.avatar.clear();
+    this.character.avatar.fillStyle(color);
+    this.character.avatar.fillRect(x, y, 20, 20);
   }
 
   attack() {

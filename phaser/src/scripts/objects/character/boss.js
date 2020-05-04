@@ -5,7 +5,7 @@ const BOSS_DAMAGE = 20;
 const BOSS_ACCURACY = 70;
 
 export default class Boss extends Character {
-  constructor(scene: Phaser.Scene) {
+  constructor(scene) { // Phaser.Scene
     super(scene);
     this.character =  { 
       health: BOSS_HEALTH,
@@ -18,3 +18,4 @@ export default class Boss extends Character {
     };
   }
 }
+
