@@ -4,8 +4,9 @@ import { TurnState } from '../lib/interfaces/game';
 const BASE_ENEMEY_ACCURACY_THRESHOLD = 40;
 const BASE_HERO_ACCURACY_THRESHOLD = 50;
 
-export default class GameLoop {
-  public constructor() {
+export default class GameLoop extends Phaser.Scene {
+  public constructor(config: Phaser.Types.Scenes.SettingsConfig) {
+    super(config);
     console.log('initializing game loop');
   }
 
