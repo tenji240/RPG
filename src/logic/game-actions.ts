@@ -1,5 +1,5 @@
 import { Hero, Enemy } from '../objects/character';
-import { TurnState } from '../lib/interfaces/game';
+import { TurnState, AutoTurnState } from '../lib/interfaces/game';
 
 const BASE_ENEMEY_ACCURACY_THRESHOLD = 40;
 const BASE_HERO_ACCURACY_THRESHOLD = 50;
@@ -11,21 +11,32 @@ export default class GameLoop extends Phaser.Scene {
   }
 
   public getState(): void {
-    console.log('[check state]');
+    // console.log('[check state]');
   }
 
-  public autoAttack(hero: Hero, enemy: Enemy): void {
+  public autoAttack(hero: Hero, enemy: Enemy): AutoTurnState {
     if (this.heroWinConditionCheck(hero, enemy)) {
       console.log('[DONE]', hero, enemy);
+      return null;
     } else {
-      const r = this.heroAttack(hero, enemy);
-      const q = this.enemeyAttack(hero, enemy);
-      console.log('[STATE]', r, q);
+      const heroState = this.heroAttack(hero, enemy);
+      const enemyState = this.enemeyAttack(hero, enemy);
+      return {
+        heroState,
+        enemyState,
+      };
     }
   }
 
   protected heroWinConditionCheck(hero: Hero, enemy: Enemy): boolean {
-    return hero.character.health >= 0 && enemy.character.health <= 0;
+    if (hero.character.health > 0) {
+      return hero.character.health >= 0 && enemy.character.health <= 0;
+    }
+    if (enemy.character.health > 0) {
+      return enemy.character.health >= 0 && hero.character.health <= 0;
+    }
+    console.log('we are not done');
+    return false;
   }
 
   protected enemeyAttack(hero: Hero, enemy: Enemy): TurnState {

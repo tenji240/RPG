@@ -10,3 +10,8 @@ export interface TurnState {
   heroAccuracy?: integer;
   enemyAccuracy?: integer;
 }
+
+export interface AutoTurnState {
+  heroState: TurnState;
+  enemyState: TurnState;
+}

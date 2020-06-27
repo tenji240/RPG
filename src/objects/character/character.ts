@@ -2,7 +2,7 @@ import { PlayerCharacter } from 'src/lib/interfaces/character';
 
 // exported constants
 export const BASE_HEALTH =  100;
-export const BASE_DAMAGE = 10;
+export const BASE_DAMAGE = 20;
 export const BASE_HEAL = 15;
 export const BASE_ACCURACY = 80;
 export const BASE_XP = 0;

@@ -19,7 +19,7 @@ export class FightScene extends Phaser.Scene {
   }
 
   public create(): void {
-    this.turnTrigger = this.add.dom(200, 200).createFromCache('login');
+    this.turnTrigger = this.add.dom(200, 600).createFromCache('login');
     this.gameLoop = new GameLoop(this.scene);
     this.add.text(0, 0, 'Hello World', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     this.turnTrigger.setInteractive();
@@ -30,8 +30,10 @@ export class FightScene extends Phaser.Scene {
     console.log('[GAME LOOP CHECK]', this.hero, this.enemy);
 
     this.turnTrigger.on('click', (event: any) => {
-      console.log('[click event', event);
-      this.gameLoop.autoAttack(this.hero, this.enemy);
+      const autoTurnState = this.gameLoop.autoAttack(this.hero, this.enemy);
+      console.log('[TURN STATE]', autoTurnState);
+      console.log('[HERO]', this.hero.character.health);
+      console.log('[ENEMY]', this.enemy.character.health);
     });
 
     // ** trigger a draw event
