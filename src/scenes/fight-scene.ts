@@ -9,7 +9,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class FightScene extends Phaser.Scene {
   public turnTrigger: Phaser.GameObjects.DOMElement;
-
+  public textLog: Phaser.GameObjects.Text;
   public hero: Hero;
   public enemy: Enemy;
   protected gameLoop: GameLoop;
@@ -21,13 +21,14 @@ export class FightScene extends Phaser.Scene {
   public create(): void {
     this.turnTrigger = this.add.dom(200, 600).createFromCache('login');
     this.gameLoop = new GameLoop(this.scene);
-    this.add.text(0, 0, 'Hello World', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+    this.textLog = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Hello World', {fontFamily: 'sans-serif'});
+    this.textLog.updateText();
     this.turnTrigger.setInteractive();
     this.turnTrigger.addListener('click');
 
     // ** load assets into the scene and check the game loop
     this.loadBattleScene();
-    console.log('[GAME LOOP CHECK]', this.hero, this.enemy);
+    // console.log('[GAME LOOP CHECK]', this.hero, this.enemy);
 
     this.turnTrigger.on('click', (event: any) => {
       const autoTurnState = this.gameLoop.autoAttack(this.hero, this.enemy);
