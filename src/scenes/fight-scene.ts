@@ -21,8 +21,8 @@ export class FightScene extends Phaser.Scene {
   public create(): void {
     this.turnTrigger = this.add.dom(200, 600).createFromCache('login');
     this.gameLoop = new GameLoop(this.scene);
-    this.textLog = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Hello World', {fontFamily: 'sans-serif'});
-    this.textLog.updateText();
+    // this.textLog = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Hello World', {fontFamily: 'sans-serif'});
+    // this.textLog.updateText();
     this.turnTrigger.setInteractive();
     this.turnTrigger.addListener('click');
 
