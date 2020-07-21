@@ -34,7 +34,7 @@ export default class Character extends Phaser.GameObjects.GameObject {
   // insert a base character image
   public draw(color: string, x: integer, y: integer) { // hexadeciamal valie inside
     this.character.avatar.clear();
-    this.character.avatar.lineStyle(5, 0xFF00FF, 1.0);
+    this.character.avatar.lineStyle(5, color, 1.0);
     this.character.avatar.fillStyle(color, 1.0);
     this.character.avatar.fillRect(x, y, 400, 200);
     this.character.avatar.strokeRect(x, y, 400, 200);

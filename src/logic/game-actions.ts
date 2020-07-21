@@ -11,7 +11,6 @@ export default class GameLoop extends Phaser.Scene {
   }
 
   public getState(): void {
-    // console.log('[check state]');
   }
 
   public autoAttack(hero: Hero, enemy: Enemy): AutoTurnState {
@@ -29,20 +28,21 @@ export default class GameLoop extends Phaser.Scene {
   }
 
   protected heroWinConditionCheck(hero: Hero, enemy: Enemy): boolean {
-    if (hero.character.health > 0) {
-      return hero.character.health >= 0 && enemy.character.health <= 0;
+    if (hero.character.health > 0 && enemy.character.health > 0) {
+      return false;
     }
-    if (enemy.character.health > 0) {
-      return enemy.character.health >= 0 && hero.character.health <= 0;
+    if (hero.character.health > 0 && enemy.character.health <= 0) {
+      return true;
     }
-    console.log('we are not done');
+    if (enemy.character.health > 0 && hero.character.health <= 0) {
+      return true;
+    }
     return false;
   }
 
   protected enemeyAttack(hero: Hero, enemy: Enemy): TurnState {
     let enemyDamageDealt = 0;
     const enemyAccuracy = Math.floor((enemy.character.accuracy * Math.random()));
-    console.log('[CHECK ENEMY ACCURACY]', enemyAccuracy);
 
     if (enemyAccuracy > BASE_ENEMEY_ACCURACY_THRESHOLD) {
       enemyDamageDealt = Math.floor((enemy.character.damage * Math.random()));
@@ -60,7 +60,6 @@ export default class GameLoop extends Phaser.Scene {
   protected heroAttack(hero: Hero, enemy: Enemy): TurnState {
     let heroDamageDealt = 0;
     const heroAccuracy = Math.floor((hero.character.accuracy * Math.random()));
-    console.log('[CHECK ENEMY ACCURACY]', heroAccuracy);
 
     if (heroAccuracy > BASE_HERO_ACCURACY_THRESHOLD) {
       heroDamageDealt = Math.floor((enemy.character.damage * Math.random()));

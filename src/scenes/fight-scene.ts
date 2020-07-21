@@ -21,24 +21,20 @@ export class FightScene extends Phaser.Scene {
   public create(): void {
     this.turnTrigger = this.add.dom(200, 600).createFromCache('login');
     this.gameLoop = new GameLoop(this.scene);
-    // this.textLog = new Phaser.GameObjects.Text(this.scene, 0, 0, 'Hello World', {fontFamily: 'sans-serif'});
-    // this.textLog.updateText();
+    this.textLog = this.add.text(0, 0, 'Hello World', { fontFamily: 'sans-serif' });
     this.turnTrigger.setInteractive();
     this.turnTrigger.addListener('click');
 
     // ** load assets into the scene and check the game loop
     this.loadBattleScene();
-    // console.log('[GAME LOOP CHECK]', this.hero, this.enemy);
 
     this.turnTrigger.on('click', (event: any) => {
-      const autoTurnState = this.gameLoop.autoAttack(this.hero, this.enemy);
-      console.log('[TURN STATE]', autoTurnState);
-      console.log('[HERO]', this.hero.character.health);
-      console.log('[ENEMY]', this.enemy.character.health);
+      this.executeAutoTurn();
     });
 
     // ** trigger a draw event
-    // this.hero.draw('0xFFFFFF', 400, 400);
+    this.hero.draw('0xFFFFFF', 200, 200);
+    this.enemy.draw('0x6666FF', 300, 300);
   }
 
   public update(): void {
@@ -51,7 +47,16 @@ export class FightScene extends Phaser.Scene {
   }
 
   protected executeAutoTurn(): void {
-    this.gameLoop.autoAttack(this.hero, this.enemy);
+    const turnState = this.gameLoop.autoAttack(this.hero, this.enemy);
+    if (turnState) {
+      this.textLog.setText(`HERO DAMAGE: ${turnState.heroState.heroDamageDealt}\n
+                          HERO: ${this.hero.character.health}/${this.hero.character.maxHealth}\n
+                          ENEMY DAMAGE: ${turnState.enemyState.heroDamageDealt}\n
+                          ENEMY: ${this.enemy.character.health}/${this.enemy.character.maxHealth}\n`);
+    } else {
+      this.textLog.setText('Game Complete');
+    }
+    // console.log('[STATE]', this.hero.character, this.enemy.character);
   }
 
 }
