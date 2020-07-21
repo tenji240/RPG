@@ -9,6 +9,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class FightScene extends Phaser.Scene {
   public turnTrigger: Phaser.GameObjects.DOMElement;
+  public heroHealth: Phaser.GameObjects.DOMElement;
   public textLog: Phaser.GameObjects.Text;
   public hero: Hero;
   public enemy: Enemy;
@@ -20,8 +21,9 @@ export class FightScene extends Phaser.Scene {
 
   public create(): void {
     this.turnTrigger = this.add.dom(200, 600).createFromCache('login');
+    this.heroHealth = this.add.dom(300, 100).createFromCache('health');
     this.gameLoop = new GameLoop(this.scene);
-    this.textLog = this.add.text(0, 0, 'Hello World', { fontFamily: 'sans-serif' });
+    this.textLog = this.add.text(200, 0, 'Hello World', { fontFamily: 'sans-serif' });
     this.turnTrigger.setInteractive();
     this.turnTrigger.addListener('click');
 
@@ -56,7 +58,8 @@ export class FightScene extends Phaser.Scene {
     } else {
       this.textLog.setText('Game Complete');
     }
-    // console.log('[STATE]', this.hero.character, this.enemy.character);
+    const health = Math.floor((this.hero.character.health / this.hero.character.maxHealth) * 100);
+    this.heroHealth.getChildByID('progress-bar').setAttribute('style', `width: ${health}%`);
   }
 
 }

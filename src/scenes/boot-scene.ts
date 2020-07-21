@@ -60,6 +60,7 @@ export class BootScene extends Phaser.Scene {
   private loadAssets() {
     // Load sample assets
     this.load.html('login', 'assets/button.html');
+    this.load.html('health', 'assets/progress/progress.html');
 
     // Source: Open Game Art
     this.load.image('man', 'assets/character.png');
